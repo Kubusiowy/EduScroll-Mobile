@@ -1,23 +1,25 @@
 package com.example.eduscroll.ViewModels
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eduscroll.client.RetrofitInstance
 import com.example.eduscroll.domain.LessonDto
+import com.example.eduscroll.domain.PassedLessonDto // DTO z api/progress
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    var lessons by mutableStateOf<List<LessonDto>>(emptyList())
-        private set
-
-    var isLoading by mutableStateOf(true)
+    var isLoading by mutableStateOf(false)
         private set
 
     var error by mutableStateOf<String?>(null)
+        private set
+
+    var lessons by mutableStateOf<List<LessonDto>>(emptyList())
+        private set
+
+    var completedLessons by mutableStateOf<Set<Int>>(emptySet())
         private set
 
     fun loadLessons(categoryId: Int) {
@@ -26,10 +28,17 @@ class HomeViewModel : ViewModel() {
                 isLoading = true
                 error = null
 
-                lessons = RetrofitInstance.api.getLessonsForCategory(categoryId)
+                val lessonsFromApi = RetrofitInstance.api.getLessonsForCategory(categoryId)
+                val progress = RetrofitInstance.api.getProgress()
+                val completedIds = progress
+                    .map { it.lessonId }
+                    .toSet()
+
+                lessons = lessonsFromApi
+                completedLessons = completedIds
 
             } catch (e: Exception) {
-                error = e.message
+                error = e.message ?: "Nie udało się wczytać lekcji"
             } finally {
                 isLoading = false
             }

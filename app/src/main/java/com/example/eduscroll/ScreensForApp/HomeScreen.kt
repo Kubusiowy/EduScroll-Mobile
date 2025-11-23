@@ -54,14 +54,13 @@ fun HomeScreen(
             )
         },
         bottomBar = {
-            BottomNavigationBar(navController,userId)
+            BottomNavigationBar(navController, userId)
         }
     ) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-
         ) {
             when {
                 homeViewModel.isLoading -> {
@@ -75,7 +74,7 @@ fun HomeScreen(
                     Text(
                         text = "Błąd: ${homeViewModel.error}",
                         modifier = Modifier.align(Alignment.Center),
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.error
                     )
                 }
 
@@ -83,7 +82,7 @@ fun HomeScreen(
                     Text(
                         text = "Brak lekcji dla tej kategorii 😶",
                         modifier = Modifier.align(Alignment.Center),
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
 
@@ -93,7 +92,7 @@ fun HomeScreen(
                     ) {
                         Text(
                             text = "Lekcje: ${homeViewModel.lessons.size}",
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
                                 .padding(top = 8.dp)
@@ -101,8 +100,9 @@ fun HomeScreen(
 
                         LessonList(
                             lessons = homeViewModel.lessons,
+                            completedLessons = homeViewModel.completedLessons,
                             navController = navController,
-                            userId
+                            userId = userId
                         )
                     }
                 }
@@ -115,9 +115,19 @@ fun HomeScreen(
 @Composable
 private fun LessonList(
     lessons: List<LessonDto>,
+    completedLessons: Set<Int>,
     navController: NavController,
     userId: Int
 ) {
+    // paleta gradientów – każda lekcja inny vibe
+    val gradients = listOf(
+        listOf(Color(0xFF6366F1), Color(0xFF818CF8)), // fiolet
+        listOf(Color(0xFF10B981), Color(0xFF34D399)), // zielony
+        listOf(Color(0xFFF97316), Color(0xFFFBBF24)), // pomarańcz
+        listOf(Color(0xFFEC4899), Color(0xFFF472B6)), // róż
+        listOf(Color(0xFF0EA5E9), Color(0xFF22D3EE))  // niebieski
+    )
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(32.dp),
@@ -127,6 +137,11 @@ private fun LessonList(
             val lesson = lessons[index]
             val isLeft = index % 2 == 0
             val primary = MaterialTheme.colorScheme.primary
+
+            val isCompleted = lesson.id in completedLessons
+            val gradientColors =
+                if (isCompleted) listOf(Color(0xFF16A34A), Color(0xFF22C55E)) // mocny zielony
+                else gradients[index % gradients.size]
 
             Box(
                 modifier = Modifier
@@ -142,16 +157,16 @@ private fun LessonList(
                     val centerX = size.width / 2f
                     val centerY = size.height / 2f
 
-
+                    // główna pionowa ścieżka
                     drawLine(
-                        color = primary.copy(alpha = 0.25f),
+                        color = primary.copy(alpha = 0.18f),
                         start = Offset(centerX, 0f),
                         end = Offset(centerX, size.height),
                         strokeWidth = 18f,
                         cap = StrokeCap.Round
                     )
 
-
+                    // odnogi w lewo/prawo
                     val bubbleCenterX = if (isLeft) {
                         size.width * 0.2f
                     } else {
@@ -159,14 +174,16 @@ private fun LessonList(
                     }
 
                     drawLine(
-                        color = primary.copy(alpha = 0.8f),
+                        color = if (isCompleted)
+                            Color(0xFF22C55E).copy(alpha = 0.9f)
+                        else
+                            primary.copy(alpha = 0.8f),
                         start = Offset(centerX, centerY),
                         end = Offset(bubbleCenterX, centerY),
                         strokeWidth = 20f,
                         cap = StrokeCap.Round
                     )
                 }
-
 
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -175,6 +192,8 @@ private fun LessonList(
                     LessonBubble(
                         lesson = lesson,
                         index = index,
+                        gradientColors = gradientColors,
+                        isCompleted = isCompleted,
                         onClick = {
                             navController.navigate(
                                 Screens.LessonScreen.pass(
@@ -182,7 +201,6 @@ private fun LessonList(
                                     userId = userId
                                 )
                             )
-
                         }
                     )
                 }
@@ -195,10 +213,11 @@ private fun LessonList(
 fun LessonBubble(
     lesson: LessonDto,
     index: Int,
+    gradientColors: List<Color>,
+    isCompleted: Boolean,
     onClick: () -> Unit
 ) {
     val primary = MaterialTheme.colorScheme.primary
-    val secondary = MaterialTheme.colorScheme.secondary
 
     Surface(
         shape = CircleShape,
@@ -213,7 +232,7 @@ fun LessonBubble(
         Box(
             modifier = Modifier
                 .background(
-                    color = primary.copy(alpha = 0.25f),
+                    color = primary.copy(alpha = 0.18f),
                     shape = CircleShape
                 )
                 .padding(6.dp),
@@ -224,17 +243,15 @@ fun LessonBubble(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                primary,
-                                secondary
-                            )
-                        ),
+                        brush = Brush.linearGradient(gradientColors),
                         shape = CircleShape
                     )
                     .border(
-                        width = 2.dp,
-                        color = Color.White.copy(alpha = 0.7f),
+                        width = if (isCompleted) 3.dp else 2.dp,
+                        color = if (isCompleted)
+                            Color.White
+                        else
+                            Color.White.copy(alpha = 0.7f),
                         shape = CircleShape
                     )
                     .padding(8.dp),
@@ -261,6 +278,16 @@ fun LessonBubble(
                         color = Color.White,
                         maxLines = 2
                     )
+
+                    if (isCompleted) {
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "Ukończona",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White.copy(alpha = 0.9f)
+                        )
+                    }
                 }
             }
         }
@@ -268,28 +295,30 @@ fun LessonBubble(
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController,userId:Int) {
+fun BottomNavigationBar(navController: NavController, userId: Int) {
 
     NavigationBar {
         NavigationBarItem(
             selected = true,
-            onClick = {  },
+            onClick = { },
             icon = { Icon(Icons.Default.Home, contentDescription = "Lekcje") },
             label = { Text("Lekcje") }
         )
 
         NavigationBarItem(
             selected = false,
-            onClick = {  navController.navigate(Screens.RankingScreen.pass(userId)) },
+            onClick = { navController.navigate(Screens.RankingScreen.pass(userId)) },
             icon = { Icon(Icons.Default.Star, contentDescription = "Ranking") },
             label = { Text("Ranking") }
         )
 
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(
-                Screens.ProfileScreen.pass(userId)
-            ) },
+            onClick = {
+                navController.navigate(
+                    Screens.ProfileScreen.pass(userId)
+                )
+            },
             icon = { Icon(Icons.Default.AccountCircle, contentDescription = "Profil") },
             label = { Text("Profil") }
         )
