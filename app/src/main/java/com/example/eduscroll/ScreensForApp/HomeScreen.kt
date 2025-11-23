@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.eduscroll.ScreensSealed.Screens
 import com.example.eduscroll.ViewModels.HomeViewModel
 import com.example.eduscroll.domain.LessonDto
 
@@ -101,7 +102,8 @@ fun HomeScreen(
 
                         LessonList(
                             lessons = homeViewModel.lessons,
-                            navController = navController
+                            navController = navController,
+                            userId
                         )
                     }
                 }
@@ -114,7 +116,8 @@ fun HomeScreen(
 @Composable
 private fun LessonList(
     lessons: List<LessonDto>,
-    navController: NavController
+    navController: NavController,
+    userId: Int
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -174,7 +177,12 @@ private fun LessonList(
                         lesson = lesson,
                         index = index,
                         onClick = {
-                            // TODO: przejście do szczegółów lekcji,
+                            navController.navigate(
+                                Screens.LessonScreen.pass(
+                                    lessonId = lesson.id,
+                                    userId = userId
+                                )
+                            )
 
                         }
                     )

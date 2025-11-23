@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.eduscroll.ScreensForApp.HomeScreen
 import com.example.eduscroll.ScreensForApp.InterestFormScreen
+import com.example.eduscroll.ScreensForApp.LessonScreen
 import com.example.eduscroll.ScreensForApp.LoginScreen
 import com.example.eduscroll.ScreensForApp.SplashScreen
 import com.example.eduscroll.ScreensSealed.Screens
@@ -42,6 +43,18 @@ fun NavHostMain(navController: NavHostController) {
                 categoryId = categoryId
             )
         }
+
+        composable(Screens.LessonScreen.route) { backStackEntry ->
+            val lessonId = backStackEntry.arguments?.getString("lessonId")?.toIntOrNull() ?: -1
+            val userId = backStackEntry.arguments?.getString("userId")?.toIntOrNull() ?: 1
+
+            LessonScreen(
+                navController = navController,
+                lessonId = lessonId,
+                userId = userId
+            )
+        }
+
 
     }
 
