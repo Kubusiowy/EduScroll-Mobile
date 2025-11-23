@@ -280,7 +280,7 @@ fun BottomNavigationBar(navController: NavController,userId:Int) {
 
         NavigationBarItem(
             selected = false,
-            onClick = { /* TODO ranking */ },
+            onClick = {  navController.navigate(Screens.RankingScreen.pass(userId)) },
             icon = { Icon(Icons.Default.Star, contentDescription = "Ranking") },
             label = { Text("Ranking") }
         )

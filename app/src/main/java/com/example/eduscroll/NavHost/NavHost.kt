@@ -9,6 +9,7 @@ import com.example.eduscroll.ScreensForApp.InterestFormScreen
 import com.example.eduscroll.ScreensForApp.LessonScreen
 import com.example.eduscroll.ScreensForApp.LoginScreen
 import com.example.eduscroll.ScreensForApp.ProfileScreen
+import com.example.eduscroll.ScreensForApp.RankingScreen
 import com.example.eduscroll.ScreensForApp.SplashScreen
 import com.example.eduscroll.ScreensSealed.Screens
 
@@ -67,6 +68,10 @@ fun NavHostMain(navController: NavHostController) {
             )
         }
 
+        composable(Screens.RankingScreen.route) { backStackEntry ->
+            val userId = backStackEntry.arguments?.getString("userId")?.toIntOrNull() ?: 1
+            RankingScreen(navController = navController, userId = userId)
+        }
 
     }
 

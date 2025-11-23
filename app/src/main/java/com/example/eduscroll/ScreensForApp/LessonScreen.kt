@@ -18,7 +18,7 @@ import com.example.eduscroll.ViewModels.LessonUiState
 fun LessonScreen(
     navController: NavController,
     lessonId: Int,
-    userId: Int, // na razie nieużywane, ale może się przydać np. w przyszłości do profilu
+    userId: Int,
     viewModel: LessonDetailViewModel = viewModel()
 ) {
     val state = viewModel.uiState
@@ -41,7 +41,7 @@ fun LessonScreen(
                 onAnswer = { qId, answer -> viewModel.selectAnswer(qId, answer) },
                 onNext = { viewModel.nextQuestion() },
                 onFinish = {
-                    // 👇 TUTAJ ZMIANA – backend ma usera „na sztywno”, więc tylko lessonId
+
                     viewModel.finishQuizAndSave(lessonId)
                 }
             )
@@ -107,7 +107,6 @@ fun LessonQuizScreen(
 ) {
     val question = state.questions[state.currentQuestionIndex]
 
-    // jaka odpowiedź jest wybrana dla tego pytania
     val selectedLetter = state.selectedAnswers[question.id]
 
     Column(
@@ -164,7 +163,7 @@ fun LessonQuizScreen(
 
         Button(
             onClick = if (isLast) onFinish else onNext,
-            enabled = selectedLetter != null, // bez wyboru nie idziesz dalej
+            enabled = selectedLetter != null,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(if (isLast) "Zakończ quiz" else "Następne pytanie")
