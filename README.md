@@ -5,3 +5,6 @@ Aplikacja została zaprojektowana jako alternatywa dla zjawiska doomscrollingu �
 Dzięki integracji z serwerem treści edukacyjne mogą być na bieżąco aktualizowane i rozszerzane. System umożliwia zdalne dodawanie i edycję materiałów, a w przyszłości planowane jest wprowadzenie moderowanego mechanizmu publikowania treści przez użytkowników.
 
 Aplikacja ma na celu nie tylko przekazywanie wiedzy, ale również zmianę nawyków cyfrowych, oferując wartościową alternatywę dla krótkich, rozrywkowych materiałów dostępnych w mediach społecznościowych.
+
+link do backendu repo https://github.com/Kubusiowy/Server-HackHeros
+link do postawionego backendu na prywatnym serwerze https://eduscroll.pl/api/ping
