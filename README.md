@@ -1,10 +1,76 @@
-EduScroll to mobilna aplikacja edukacyjna, której celem jest promowanie świadomego korzystania z technologii oraz rozwijanie wiedzy młodych użytkowników w obszarach takich jak cyberbezpieczeństwo, weryfikacja informacji czy fake newsy.
+# EduScroll — Mobilna aplikacja edukacyjna
 
-Aplikacja została zaprojektowana jako alternatywa dla zjawiska doomscrollingu – bezrefleksyjnego przeglądania treści w mediach społecznościowych. EduScroll zastępuje nieproduktywne scrollowanie krótkimi, angażującymi materiałami edukacyjnymi, które przedstawiane są w formie dynamicznego feedu, znanego z popularnych platform.
+EduScroll to aplikacja stworzona jako świadoma alternatywa dla zjawiska doomscrollingu. Zamiast bezrefleksyjnego przewijania krótkich, rozrywkowych materiałów, użytkownik otrzymuje krótkie, atrakcyjne treści edukacyjne dotyczące technologii, takich jak cyberbezpieczeństwo, weryfikacja informacji, fake newsy oraz zdrowe nawyki cyfrowe.
 
-Dzięki integracji z serwerem treści edukacyjne mogą być na bieżąco aktualizowane i rozszerzane. System umożliwia zdalne dodawanie i edycję materiałów, a w przyszłości planowane jest wprowadzenie moderowanego mechanizmu publikowania treści przez użytkowników.
+Aplikacja wykorzystuje formę dynamicznego feedu, znanego z popularnych social mediów, lecz skupionego na realnej wartości edukacyjnej zamiast bezproduktywnej rozrywki.
 
-Aplikacja ma na celu nie tylko przekazywanie wiedzy, ale również zmianę nawyków cyfrowych, oferując wartościową alternatywę dla krótkich, rozrywkowych materiałów dostępnych w mediach społecznościowych.
- </br> </br>
-link do backendu repo https://github.com/Kubusiowy/Server-HackHeros </br>
-link do postawionego backendu na prywatnym serwerze https://eduscroll.pl/api/ping
+---
+
+## Misja projektu
+
+Celem EduScroll jest zmiana nawyków cyfrowych młodych użytkowników poprzez zastąpienie nieproduktywnego scrollowania wartościową, krótką edukacją. Projekt zachęca do świadomego korzystania z technologii i popularyzuje wiedzę z obszaru bezpieczeństwa cyfrowego oraz krytycznego myślenia.
+
+---
+
+## Sposób działania
+
+Aplikacja pobiera materiały edukacyjne z dedykowanego backendu i dynamicznie wyświetla je użytkownikowi w formie przewijanego strumienia treści. Zawartość może być zdalnie aktualizowana i rozwijana, co umożliwia stałe poszerzanie bazy wiedzy w aplikacji.
+
+---
+
+## Technologia
+
+| Warstwa | Wykorzystana technologia |
+|---------|--------------------------|
+| Aplikacja mobilna | Kotlin, Jetpack Compose |
+| Architektura | MVVM, Repository |
+| Komunikacja z API | Retrofit, Kotlin Serialization (JSON) |
+| Backend | Ktor, MySQL, Exposed (Kotlin) |
+| Hosting | Prywatny serwer z domeną eduscroll.pl |
+
+---
+
+## Backend projektu
+
+Repozytorium:  
+https://github.com/Kubusiowy/Server-HackHeros
+
+Działający endpoint testowy:  
+https://eduscroll.pl/api/ping
+
+---
+
+## Funkcjonalności
+
+- przewijany feed edukacyjny oparty na krótkich treściach
+- dynamiczne aktualizacje danych z backendu
+- logowanie użytkownika z wykorzystaniem JWT i ról
+- rozbudowany system kategorii i materiałów edukacyjnych
+- planowane systemy rozwoju użytkownika
+
+---
+
+## Wymagania developerskie
+
+| Wymaganie | Minimalna wersja |
+|-----------|------------------|
+| Android Studio | Flamingo lub nowsza |
+| Język | Kotlin |
+| Android | co najmniej 8.0 (API 26) |
+| System budowania | Gradle (Kotlin DSL) |
+
+---
+
+## Status projektu
+
+Aplikacja jest w fazie aktywnego rozwoju. Projekt powstaje zarówno jako inicjatywa edukacyjna, jak i realne narzędzie promujące świadome korzystanie z technologii.
+
+---
+
+## Planowany rozwój
+
+- elementy grywalizacji (punkty, rangi, statystyki)
+- quizy oraz materiały bazujące na prawdziwych fake newsach i manipulacjach
+- rozbudowa panelu backendowego do edycji treści
+
+---
