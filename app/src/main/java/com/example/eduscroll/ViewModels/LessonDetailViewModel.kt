@@ -23,12 +23,12 @@ data class LessonUiState(
     val questions: List<QuestionDto> = emptyList(),
     val currentStep: LessonStep = LessonStep.MATERIALS,
     val currentQuestionIndex: Int = 0,
-    val selectedAnswers: Map<Int, String> = emptyMap(), // questionId -> "A"/"B"/...
+    val selectedAnswers: Map<Int, String> = emptyMap(),
     val correctCount: Int = 0,
     val progressSaved: Boolean = false
 )
 
-// pomocnicza struktura: materiał + paragrafy
+// materiał + paragrafy
 data class MaterialWithParagraphs(
     val material: EducationMaterialDto,
     val paragraphs: List<ParagraphDto>
@@ -44,10 +44,8 @@ class LessonDetailViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                // 1. materiały
                 val materials = RetrofitInstance.api.getMaterialsForLesson(lessonId)
 
-                // do każdego materiału pobieramy paragrafy
                 val materialsWithParagraphs = materials.map { material ->
                     val paragraphs = RetrofitInstance.api
                         .getParagraphsForMaterial(material.id)
@@ -59,7 +57,6 @@ class LessonDetailViewModel : ViewModel() {
                     )
                 }
 
-                // 2. pytania
                 val questions = RetrofitInstance.api
                     .getQuestionsForLesson(lessonId)
 
@@ -96,9 +93,8 @@ class LessonDetailViewModel : ViewModel() {
         }
     }
 
-    fun finishQuizAndSave(userId: Int, lessonId: Int) {
+    fun finishQuizAndSave(lessonId: Int) {
         viewModelScope.launch {
-            // policz poprawne odpowiedzi
             val correct = uiState.questions.count { q ->
                 val selected = uiState.selectedAnswers[q.id]
                 selected != null && selected.equals(q.correctAnswer, ignoreCase = true)
@@ -111,7 +107,6 @@ class LessonDetailViewModel : ViewModel() {
 
             try {
                 val body = PassedLessonRequest(
-                    userId = userId,
                     lessonId = lessonId,
                     correctAnswers = correct
                 )

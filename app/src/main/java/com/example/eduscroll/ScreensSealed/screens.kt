@@ -20,4 +20,8 @@ sealed class Screens(val route: String) {
             "lesson_screen/$lessonId/$userId"
     }
 
+    object ProfileScreen : Screens("profile_screen/{userId}") {
+        fun pass(userId: Int) = "profile_screen/$userId"
+    }
+
 }

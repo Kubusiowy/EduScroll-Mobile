@@ -18,7 +18,7 @@ import com.example.eduscroll.ViewModels.LessonUiState
 fun LessonScreen(
     navController: NavController,
     lessonId: Int,
-    userId: Int,
+    userId: Int, // na razie nieużywane, ale może się przydać np. w przyszłości do profilu
     viewModel: LessonDetailViewModel = viewModel()
 ) {
     val state = viewModel.uiState
@@ -40,7 +40,10 @@ fun LessonScreen(
                 state = state,
                 onAnswer = { qId, answer -> viewModel.selectAnswer(qId, answer) },
                 onNext = { viewModel.nextQuestion() },
-                onFinish = { viewModel.finishQuizAndSave(userId, lessonId) }
+                onFinish = {
+                    // 👇 TUTAJ ZMIANA – backend ma usera „na sztywno”, więc tylko lessonId
+                    viewModel.finishQuizAndSave(lessonId)
+                }
             )
 
             LessonStep.SUMMARY -> LessonSummaryScreen(
@@ -54,7 +57,7 @@ fun LessonScreen(
 
 @Composable
 fun LessonMaterialsScreen(
-    state: com.example.eduscroll.ViewModels.LessonUiState,
+    state: LessonUiState,
     onNext: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {

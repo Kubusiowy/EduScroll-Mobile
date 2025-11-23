@@ -6,6 +6,7 @@ import com.example.eduscroll.domain.CategoryDto
 import com.example.eduscroll.domain.EducationMaterialDto
 import com.example.eduscroll.domain.LessonDto
 import com.example.eduscroll.domain.ParagraphDto
+import com.example.eduscroll.domain.PassedLessonDto
 import com.example.eduscroll.domain.PassedLessonRequest
 import com.example.eduscroll.domain.QuestionDto
 import retrofit2.Response
@@ -44,11 +45,17 @@ interface ApiService{
         @Path("id") lessonId: Int
     ): List<QuestionDto>
 
+
+
+
     @POST("api/progress/lesson/{id}")
     suspend fun postLessonProgress(
         @Path("id") lessonId: Int,
         @Body body: PassedLessonRequest
     ): Response<Map<String, String>>
 
+
+    @GET("api/progress")
+    suspend fun getProgress(): List<PassedLessonDto>
 
 }

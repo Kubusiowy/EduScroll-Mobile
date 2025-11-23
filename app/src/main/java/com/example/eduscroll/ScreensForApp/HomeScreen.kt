@@ -54,7 +54,7 @@ fun HomeScreen(
             )
         },
         bottomBar = {
-            BottomNavigationBar(navController)
+            BottomNavigationBar(navController,userId)
         }
     ) { padding ->
         Box(
@@ -91,7 +91,6 @@ fun HomeScreen(
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        // DEBUG – zobaczysz ile lekcji przyszło
                         Text(
                             text = "Lekcje: ${homeViewModel.lessons.size}",
                             color = Color.White,
@@ -269,7 +268,7 @@ fun LessonBubble(
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(navController: NavController,userId:Int) {
 
     NavigationBar {
         NavigationBarItem(
@@ -288,7 +287,9 @@ fun BottomNavigationBar(navController: NavController) {
 
         NavigationBarItem(
             selected = false,
-            onClick = { /* TODO profil */ },
+            onClick = { navController.navigate(
+                Screens.ProfileScreen.pass(userId)
+            ) },
             icon = { Icon(Icons.Default.AccountCircle, contentDescription = "Profil") },
             label = { Text("Profil") }
         )

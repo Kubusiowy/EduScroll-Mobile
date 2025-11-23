@@ -51,14 +51,22 @@ data class QuestionDto(
 
 
 @Serializable
+data class ProgressResponseDto(
+    val message: String
+)
+
+@Serializable
 data class PassedLessonRequest(
-    val userId: Int,
     val lessonId: Int,
     val correctAnswers: Int
 )
 
 
 @Serializable
-data class ProgressResponseDto(
-    val message: String
+data class PassedLessonDto(
+    val id: Int,
+    val userId: Int,
+    val lessonId: Int,
+    val completedAt: String,
+    val correctAnswers: Int
 )
