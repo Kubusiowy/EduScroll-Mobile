@@ -1,6 +1,6 @@
 # EduScroll — Mobilna aplikacja edukacyjna
 
-EduScroll to aplikacja stworzona jako świadoma alternatywa dla zjawiska doomscrollingu. Zamiast bezrefleksyjnego przewijania krótkich, rozrywkowych materiałów, użytkownik otrzymuje krótkie, atrakcyjne treści edukacyjne dotyczące technologii, takich jak cyberbezpieczeństwo, weryfikacja informacji, fake newsy oraz zdrowe nawyki cyfrowe.
+EduScroll to aplikacja stworzona jako świadoma alternatywa dla zjawiska doomscrollingu. Zamiast bezrefleksyjnego przewijania krótkich, rozrywkowych materiałów, użytkownik otrzymuje krótkie, atrakcyjne treści edukacyjne.
 
 Aplikacja wykorzystuje formę dynamicznego feedu, znanego z popularnych social mediów, lecz skupionego na realnej wartości edukacyjnej zamiast bezproduktywnej rozrywki.
 
