@@ -61,9 +61,18 @@ https://eduscroll.pl/api/ping
 
 ---
 
+
+
+## Możliwe problemy z uruchomieniem aplikacji
+
+1. emulator musi mieć internet !!!
+2. Serwer został wyłączony - w takim przypadku trzeba lokalnie odpalić backend. Link z instrukcja w readme.md ->  https://github.com/Kubusiowy/Server-HackHeros
+
+--- 
+
 ## Status projektu
 
-Aplikacja jest w fazie aktywnego rozwoju. Projekt powstaje zarówno jako inicjatywa edukacyjna, jak i realne narzędzie promujące świadome korzystanie z technologii.
+Aplikacja jest prototypem. Projekt powstaje zarówno jako inicjatywa edukacyjna, jak i realne narzędzie promujące nauke i samo rozwój.
 
 ---
 
