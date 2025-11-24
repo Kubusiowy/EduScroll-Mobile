@@ -44,7 +44,7 @@ https://eduscroll.pl/api/ping
 
 - przewijany feed edukacyjny oparty na krótkich treściach
 - dynamiczne aktualizacje danych z backendu
-- logowanie użytkownika z wykorzystaniem JWT i ról
+- logowanie użytkownika i rejestracja
 - rozbudowany system kategorii i materiałów edukacyjnych
 - planowane systemy rozwoju użytkownika
 
@@ -60,7 +60,24 @@ https://eduscroll.pl/api/ping
 | System budowania | Gradle (Kotlin DSL) |
 
 ---
+##  Aplikacja mobilna (Android) – instalacja i uruchomienie
 
+###  Wymagania
+
+- Android Studio (Arctic Fox lub nowsze)
+- Zainstalowane Android SDK (min. API 24  – uzupełnij wg projektu)
+- JDK (wbudowane w Android Studio)
+- Telefon z Androidem **lub** emulator (emulator zalecany)
+- Dostęp do backendu (np. serwer Ktor / API z konkursu)  -> https://eduscroll.pl/api/ping
+
+---
+
+### 🚀 Szybki start
+
+1. **Sklonuj repozytorium**
+
+   ```bash
+   git clone https://github.com/Kubusiowy/EduScroll-Mobile
 
 
 ## Możliwe problemy z uruchomieniem aplikacji
@@ -79,7 +96,7 @@ Aplikacja jest prototypem. Projekt powstaje zarówno jako inicjatywa edukacyjna,
 ## Planowany rozwój
 
 - elementy grywalizacji (punkty, rangi, statystyki)
-- quizy oraz materiały bazujące na prawdziwych fake newsach i manipulacjach
-- rozbudowa panelu backendowego do edycji treści
+- quizy oraz materiały
+- rozbudowa panelu backendowego do edycji treści przez nauczyciela
 
 ---
